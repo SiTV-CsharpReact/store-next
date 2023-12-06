@@ -27,9 +27,9 @@ const Header: React.FC<HeaderProps> = () => {
       <div>
       <Image
       src={logo}
-      width={36}
+      width={36} 
       height={36}
-      alt="Picture of the author"
+      alt="pic"
        />
       </div>
       <ul className='h-[40px] inline-grid grid-cols-3 gap-4  justify-center text-xl '>
