@@ -38,6 +38,7 @@ const formSchema = z.object({
 const ProfileAccount = () => {
   const [loadingButton, setLoadingButton] = useState(false);
   const [dataProduct, setDataProduct] = useState([]);
+  const [isDialogVisible, setDialogVisible] = useState(false); // Thêm state để theo dõi trạng thái của Dialog
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,6 +46,13 @@ const ProfileAccount = () => {
       password: "",
     },
   });
+  const handleDialogOpen = () => {
+    setDialogVisible(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogVisible(false);
+  };
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoadingButton(true);
     // Đường dẫn API của bạn
@@ -65,6 +73,7 @@ const ProfileAccount = () => {
       setTimeout(() => {
         setLoadingButton(false);
         toast("Đăng nhập thành công");
+        setDialogVisible(false);
       }, 1000);
       // setLoadingButton(false);
       const responseData = await response.json();
@@ -81,12 +90,12 @@ const ProfileAccount = () => {
     }
   };
   return (
-    <Dialog>
-      <DialogTrigger>
+    <Dialog open={isDialogVisible} onOpenChange={setDialogVisible}>
+      <DialogTrigger onClick={handleDialogOpen}>
         <Image src={user} width={20} height={20} alt="Picture of the author" />
       </DialogTrigger>
       <DialogContent className="pt-10 w-[unset] rounded-md">
-        <DialogClose className="w-[25px] h-[25px] absolute right-0 mr-[5px] px-3 mt-1.5"></DialogClose>
+        <DialogClose  className="w-[25px] h-[25px] absolute right-0 mr-[5px] px-3 mt-1.5" onClick={handleDialogClose}></DialogClose>
         <Tabs defaultValue="account" className="w-[400px]">
           <TabsList className="data-[state=active]:bg-background w-[400px]">
             <TabsTrigger value="account" className="w-[200px]">
