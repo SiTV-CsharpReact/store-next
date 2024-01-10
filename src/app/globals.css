@@ -5,6 +5,7 @@
 @layer base {
   body {
     font-size: 12px;
+   
   }
   :root {
     --background: 0 0% 100%;

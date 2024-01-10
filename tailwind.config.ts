@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+const { fontFamily } = require("tailwindcss/defaultTheme")
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -8,6 +10,16 @@ module.exports = {
     './src/**/*.{ts,tsx}',
 	],
   theme: {
+    screens: {
+      'tablet': '640px',
+      // => @media (min-width: 640px) { ... }
+
+      'laptop': '1024px',
+      // => @media (min-width: 1024px) { ... }
+
+      'desktop': '1280px',
+      // => @media (min-width: 1280px) { ... }
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -69,6 +81,9 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", ...fontFamily.sans],
       },
     },
   },

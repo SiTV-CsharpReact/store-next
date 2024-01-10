@@ -31,7 +31,7 @@ import { FormEvent } from "react";
 
 async function getData() {
   const res = await fetch(
-    "http://localhost:6789/api/ApiSearchAdvisory/ListAdvisory2?abrokername=&investingtypecde=&acost=HN&ayearofcertmin=-1&ayearofcertmax=-1&listbrkRand"
+    "http://localhost:5678/api/ApiSearchAdvisory/ListAdvisory2?abrokername=&investingtypecde=&acost=HN&ayearofcertmin=-1&ayearofcertmax=-1&listbrkRand"
   );
   return res.json();
 }
@@ -54,7 +54,6 @@ const Dashboard = async () => {
   // fetch('https://ezadvisorselect.fpts.com.vn/SearchAdvisorys/getListCVPhanTich', {
   const data = await getData();
 
-  console.log(data.Data.brokerProfiles);
   return (
     <>
       <div className="bg-[#f7f7f7] flex justify-center">
