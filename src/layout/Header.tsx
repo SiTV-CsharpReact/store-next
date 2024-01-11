@@ -56,13 +56,13 @@ const Header: React.FC<HeaderProps> = () => {
        />
       </div>
       <ul className='inline-grid grid-cols-6 gap-7 text-[#323232] font-medium justify-center text-sx uppercase pt-2.5'>
-        <Link href={"/"}>
+      <Link href={"/products"}>
           Sản phẩm
         </Link>
         <Link href={"/dashboard"}>
           Thông tin
         </Link>
-        <Link href={"/"}>
+        <Link href={"/products"}>
           Sản phẩm
         </Link>
         <Link href={"/dashboard"}>

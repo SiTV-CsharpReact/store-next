@@ -5,6 +5,7 @@ import Header from '@/layout/Header'
 import { Montserrat as FontSans } from "next/font/google"
 import { cn } from "../lib/utils"
 import { Toaster } from '@/components/ui/sonner'
+import AuthProvider from '@/components/AuthProvider'
 export const fontSans = FontSans({
   subsets: ["vietnamese"],
   variable: "--font-sans",
@@ -20,6 +21,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    
     <html lang="en">
           
       <body 
@@ -28,10 +30,13 @@ export default function RootLayout({
         fontSans.variable
       )}
       >
+        <AuthProvider>
       <Header/>
         
         {children}
-        <Toaster /></body>
+        <Toaster />
+        </AuthProvider>
+        </body>
     </html>
   )
 }
