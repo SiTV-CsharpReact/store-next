@@ -6,14 +6,16 @@ interface StoreState {
     scrollY:number;
     setScrollY: (value: number) => void;
     maxScrollY: number;
+    setMaxScrollY: (value: number) => void;
 }
 
 const useStore = create<StoreState>((set) => ({
     fix: false,
     scrollY:0,
-    maxScrollY:document?.documentElement?.scrollHeight+70,
+    maxScrollY:0,
     setFix: (value) => set({ fix: value }),
     setScrollY: (value) => set({ scrollY: value }),
+    setMaxScrollY: (value) => set({ scrollY: value }),
 }));
 
 export default useStore;

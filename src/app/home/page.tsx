@@ -7,8 +7,9 @@ import arrowUP from '@/images/allArrow.svg'
 import Image from 'next/image'
 import IconMessenger from'@/images/messenger.svg'
 const HomePage = () => {
-    const { fix,scrollY,maxScrollY } = useStore();
-
+ 
+    const { fix,scrollY,maxScrollY,setMaxScrollY } = useStore();
+    setMaxScrollY(document?.documentElement?.scrollHeight+70)
    console.log(scrollY, maxScrollY,scrollY/maxScrollY)
     const scrollToTop = () => {
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
