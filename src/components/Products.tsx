@@ -24,13 +24,13 @@ const ProductsPage: React.FC = () => {
 
       <div className='grid gap-3 grid-cols-4 grid-rows-4 w-[1200px]'>
         {products.map(product => (
-            <Card key={product.id}>
+            <Card key={product.Id}>
             <CardHeader>
-              <CardTitle>{product.name}</CardTitle>
-              <CardDescription>{product.description}</CardDescription>
+              <CardTitle>{product.Name}</CardTitle>
+              <CardDescription>{product.Description}</CardDescription>
             </CardHeader>
             <CardContent>
-            <Image width={150} height={150} src={product.pictureUrl} alt={product.name} />
+            <Image width={150} height={150} src={product.PictureUrl} alt={product.Name} />
             <Button>Chi tiết</Button>
             </CardContent>
             <CardFooter>

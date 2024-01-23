@@ -13,20 +13,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination"
+
 
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { ProductParams } from '@/models/ProductParams';
 import { Input } from '@/components/ui/input';
+import AppPagination from '@/components/AppPagination';
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]); // Sử dụng kiểu dữ liệu Product[]
@@ -34,14 +27,26 @@ const Products: React.FC = () => {
     OrderBy: '',
     SearchTerm:'',
   });
+  const [pagination,setPagination] = useState();
+  const fetchProducts = async () => {
+    const res = await fetch(`https://localhost:2210/api/Products?Orderby=${productParams?.OrderBy}&SearchTerm=${productParams?.SearchTerm}`);
+    const data: Product[] = await res.json(); // Sử dụng kiểu dữ liệu Product[]
+    setProducts(data);
+     // Lấy giá trị từ header 'Pagination'
+  const paginationHeader = res.headers.get('Pagination');
+    if (paginationHeader) {
+    const pagination = JSON.parse(paginationHeader);
+    // Thực hiện các hành động với dữ liệu phân trang ở đây
+    
+  }
+  };
   useEffect(() => {
-    const fetchProducts = async () => {
-      const res = await fetch(`https://localhost:2210/api/Products?Orderby=${productParams?.OrderBy}&SearchTerm=${productParams?.SearchTerm}`);
-      const data: Product[] = await res.json(); // Sử dụng kiểu dữ liệu Product[]
-      setProducts(data);
-    };
+    const timerId = setTimeout(() => {
+      // Thực hiện cuộc gọi API ở đây
+      fetchProducts();
+    }, 200); // Debouncing 200ms
 
-    fetchProducts();
+    return () => clearTimeout(timerId);
   }, [productParams]);
   const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     alert(e)
@@ -54,8 +59,16 @@ const Products: React.FC = () => {
     }));
   }
   return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center pt-5'>
     <div className='w-[1200px]'>
+
+<div className='flex'>
+<div className='w-1/4 pr-4'>
+<Card className='p-3'>
+<Input value={productParams.SearchTerm} className='my-2'  placeholder='Tìm kiếm...' onChange={(e) => setProductParams(prevParams => ({
+      ...prevParams,
+      SearchTerm: e.target.value
+    }))}/>
 <div className='flex justify-end py-4'>
 <Select onValueChange={handleSelectChange}> 
   <SelectTrigger className="w-[180px]">
@@ -68,38 +81,23 @@ const Products: React.FC = () => {
   </SelectContent>
 </Select>
 </div>
-<div className='flex'>
-<div className='w-1/4 pr-4'>
-<Card className='p-3'>
-<Input value={productParams.SearchTerm} className='my-2'  placeholder='Tìm kiếm...' onChange={(e) => setProductParams(prevParams => ({
-      ...prevParams,
-      SearchTerm: e.target.value
-    }))}/>
-<RadioGroup onChange={handleRadioChange} defaultValue="priceDesc">
-  <div className="flex items-center space-x-2">
-    <RadioGroupItem value="priceDesc" id="option-priceDesc" />
-    <Label htmlFor="option-priceDesc">Giá - Cao đến thấp</Label>
-  </div>
-  <div className="flex items-center space-x-2">
-    <RadioGroupItem value="price" id="option-price" />
-    <Label htmlFor="option-price">Giá - Thấp đến cao</Label>
-  </div>
-</RadioGroup>
+
+
 
 </Card>
 </div>
       <div className='grid gap-3 grid-cols-3 grid-rows-2 w-3/4'>
         {products.map(product => (
-            <Card key={product.id}>
+            <Card key={product.Id}>
             <CardHeader>
-            <Image width={250} height={150} src={product.pictureUrl} alt={product.name} />
-              <CardTitle>{product.name}</CardTitle>
-              <CardDescription>{product.price}</CardDescription>
+            <Image width={150} height={100} src={product.PictureUrl} alt={product.Name} />
+              <CardTitle className='text-base'>{product.Name}</CardTitle>
+              <CardDescription>{product.Price}</CardDescription>
             </CardHeader>
             <CardContent>
           
             <Button>
-            <Link href={`/products/${product.id}`} >Chi tiết</Link>
+            <Link href={`/products/${product.Id}`} >Chi tiết</Link>
               </Button>
             </CardContent>
             <CardFooter>
@@ -110,22 +108,8 @@ const Products: React.FC = () => {
       </div>
     
     </div>
-    <Pagination>
-  <PaginationContent>
-    <PaginationItem>
-      <PaginationPrevious href="#" />
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink href="#">1</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationEllipsis />
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationNext href="#" />
-    </PaginationItem>
-  </PaginationContent>
-</Pagination>
+    <AppPagination/>
+ 
     </div>
     
     </div>
