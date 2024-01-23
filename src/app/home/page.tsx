@@ -9,7 +9,7 @@ import IconMessenger from'@/images/messenger.svg'
 const HomePage = () => {
  
     const { fix,scrollY,maxScrollY,setMaxScrollY } = useStore();
-    setMaxScrollY(1024)
+    // setMaxScrollY(1024)
    console.log(scrollY, maxScrollY,scrollY/maxScrollY)
     const scrollToTop = () => {
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
