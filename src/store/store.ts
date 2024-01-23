@@ -12,7 +12,7 @@ interface StoreState {
 const useStore = create<StoreState>((set) => ({
     fix: false,
     scrollY:0,
-    maxScrollY:0,
+    maxScrollY:1024,
     setFix: (value) => set({ fix: value }),
     setScrollY: (value) => set({ scrollY: value }),
     setMaxScrollY: (value) => set({ scrollY: value }),
